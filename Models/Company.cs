@@ -13,30 +13,30 @@ namespace TaskIcosoftBackend.Models
 
         [Required]
         [MaxLength(100)]
-        public string CompanyName { get; set; } = string.Empty; 
+        public string CompanyFiscalName { get; set; } = string.Empty; 
+
+        [Required]
+        [MaxLength(100)]
+        public string CompanyComercialName { get; set; } = string.Empty; 
+
+        [Required]
+        [EmailAddress]
+        [MaxLength(150)]
+        public string Email { get; set; } = string.Empty; // Email
 
         [Required]
         [MaxLength(100)]
         public string CompanyAddress { get; set; } = string.Empty;
-
+        
         [Required]
-        [MaxLength(40)]
-        public string Province { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(40)]
-        public string Canton { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(40)]
-        public string Distric { get; set; } = string.Empty;
+        [MaxLength(15)]
+        public string IdCart { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(100)]
         public string CompanyPhone { get; set; } = string.Empty;
-
+        
         [Required]
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskIcosoftBackend.Dtos.ImageDtos;
 using TaskIcosoftBackend.Dtos.Role;
 
 namespace TaskIcosoftBackend.Dtos.User
@@ -10,8 +11,9 @@ namespace TaskIcosoftBackend.Dtos.User
     {
         public int IdUser { get; set; }
         public int IdRole { get; set; }
-        public RolDto? Role { get; set; }
-        public string Base64Image { get; set; } = string.Empty; // Contenido de la imagen en base64
+        public RoleDto? Role { get; set; }
+        public int? IdImage { get; set; }
+        public ImageDto? Image { get; set; }
         public string Name { get; set; } = string.Empty;
         public string FirstSurname { get; set; } = string.Empty;
         public string SecondSurname { get; set; } = string.Empty;

@@ -12,16 +12,17 @@ namespace TaskIcosoftBackend.Models
     {
         [Key]
         public int IdUser { get; set; } // Clave primaria
-
+    
         [Required]
         public int IdRole { get; set; } // FK a Role
 
         [ForeignKey("IdRole")]
         public Role? Role { get; set; } // Relación con la tabla Role
 
-        [Required]
-        [MaxLength(int.MaxValue)] //Al valor máximo que soporte la base de datos para la cadena de string de la imagen.
-        public string Base64Image { get; set; } = string.Empty; // Contenido de la imagen en base64
+        public int? IdImage { get; set; } // FK a Image
+
+        [ForeignKey("IdImage")]
+        public Image? Image { get; set; }
 
         [Required]
         [MaxLength(100)]

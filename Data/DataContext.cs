@@ -15,7 +15,11 @@ namespace TaskIcosoftBackend.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Session> Sessions { get; set; }
-
+        public DbSet<Image> Images { get; set; }
+        public DbSet<ImageType> ImageTypes { get; set; }
+        public DbSet<SessionType> SessionTypes { get; set; }
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<CompanyEmployees> CompanyEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +30,12 @@ namespace TaskIcosoftBackend.Data
                 .WithMany()
                 .HasForeignKey(u => u.IdRole)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Image)
+                .WithMany()
+                .HasForeignKey(u => u.IdImage)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // Relación Session - User
             modelBuilder.Entity<Session>()
@@ -39,6 +49,18 @@ namespace TaskIcosoftBackend.Data
                 .HasOne(s => s.SessionType)
                 .WithMany()
                 .HasForeignKey(s => s.IdSessionType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Image>()
+                .HasOne(i => i.ImageType)
+                .WithMany()
+                .HasForeignKey(i => i.IdImageType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CompanyEmployees>()
+                .HasOne(ce => ce.Company)
+                .WithMany()
+                .HasForeignKey(ce => ce.IdCompany)
                 .OnDelete(DeleteBehavior.Restrict);
 
         }
