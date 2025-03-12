@@ -10,9 +10,8 @@ using TaskIcosoftBackend.Middleware;
 using TaskIcosoftBackend.Repository;
 using System.Security.Cryptography;
 using System.Security.Claims;
-using gymconnect_backend.Logic.Validation.Rules;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using TaskIcosoftBackend.Hubs;
 
 
 
@@ -55,6 +54,13 @@ builder.Services.AddScoped<CompanyService>();
 builder.Services.AddScoped<CompanyRepository>();
 builder.Services.AddScoped<CompanyEmployeeService>();
 builder.Services.AddScoped<CompanyEmployeeRepository>();
+builder.Services.AddScoped<SupportTaskService>();
+builder.Services.AddScoped<SupportTaskRepository>();
+builder.Services.AddScoped<PriorityService>();
+builder.Services.AddScoped<PriorityRepository>();
+builder.Services.AddScoped<StatusTaskService>();
+builder.Services.AddScoped<StatusTasksRepository>();
+
 
 
 
@@ -163,6 +169,7 @@ await RunAppAsync(app);
 void ConfigureServices(IServiceCollection services)
 {
     services.AddEndpointsApiExplorer();
+    services.AddSignalR();
     services.AddSwaggerGen(c =>
     {
         c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -237,6 +244,18 @@ void ConfigureServices(IServiceCollection services)
 
 }
 
+
+void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    // Otros middlewares...
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapHub<TaskHub>("/taskHub"); // Mapear el Hub
+        endpoints.MapControllers();
+    });
+}
+
 void ConfigureMiddleware(WebApplication app)
 {
     if (app.Environment.IsDevelopment())
@@ -246,11 +265,16 @@ void ConfigureMiddleware(WebApplication app)
     }
 
     app.UseHttpsRedirection();
-    app.UseSession();  
+    app.UseSession();
+    app.UseWebSockets(); // Habilitar WebSockets
     app.UseAuthentication();
     app.UseAuthorization();
     app.UseCors("AllowSpecificOrigins");  // Aplicar la política CORS definida.
     app.UseMiddleware<GlobalExceptionMiddleware>();
+
+    // Configuración de SignalR
+    app.MapHub<TaskHub>("/taskHub"); // Mapear el Hub
+
     app.MapControllers();
 }
 

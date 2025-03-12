@@ -25,28 +25,36 @@ namespace TaskIcosoftBackend.Models
         public string Category { get; set; } = string.Empty;
 
         [Required]
-        public int IdCompanyEmployee { get; set; }
-
-        [ForeignKey("IdCompanyEmployee")]
-        public CompanyEmployees? CompanyEmployee { get; set; }
-
-        [Required]
         public int IdUser { get; set; }
 
         [ForeignKey("IdUser")]
         public User? User { get; set; }
 
         [Required]
-        public string RequesterName { get; set; } = string.Empty;
+        public int IdCompany { get; set; }
+
+        [ForeignKey("IdCompany")]
+        public Company? Company { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string FirstSurname { get; set; } = string.Empty; 
+        public int IdCompanyEmployee { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string SecondSurname { get; set; } = string.Empty;
+        [ForeignKey("IdCompanyEmployee")]
+        public CompanyEmployees? CompanyEmployees { get; set; }
+
         public string? Solution { get; set; } // Descripción de la solución aplicada
+
+        [Required]
+        public int IdPriority { get; set; } // Prioridad de la tarea
+
+        [ForeignKey("IdPriority")]
+        public Priority? Priority { get; set; }
+
+        [Required]
+        public int IdStatus { get; set; } // Estado de la tarea
+
+        [ForeignKey("IdStatus")]
+        public StatusTask? StatusTask { get; set; }
 
         [Required]
         public DateTime? StartTask { get; set; } // Fecha de resolución
@@ -60,6 +68,6 @@ namespace TaskIcosoftBackend.Models
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         
         [Required]
-        public bool Status { get; set; }        
+        public bool Status { get; set; }  = true;      
     }
 }

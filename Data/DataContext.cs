@@ -20,6 +20,9 @@ namespace TaskIcosoftBackend.Data
         public DbSet<SessionType> SessionTypes { get; set; }
         public DbSet<Company> Companys { get; set; }
         public DbSet<CompanyEmployees> CompanyEmployees { get; set; }
+        public DbSet<SupportTasks> SupportTasks { get; set; }
+        public DbSet<StatusTask> StatusTasks { get; set; }
+        public DbSet<Priority> Priorities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,6 +66,36 @@ namespace TaskIcosoftBackend.Data
                 .HasForeignKey(ce => ce.IdCompany)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<SupportTasks>()
+                .HasOne(st => st.User)
+                .WithMany()
+                .HasForeignKey(st => st.IdUser)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SupportTasks>()
+                .HasOne(st => st.Priority)
+                .WithMany()
+                .HasForeignKey(st => st.IdPriority)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SupportTasks>()
+                .HasOne(st => st.StatusTask)
+                .WithMany()
+                .HasForeignKey(st => st.IdStatus)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SupportTasks>()
+                .HasOne(st => st.Company)
+                .WithMany()
+                .HasForeignKey(st => st.IdCompany)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SupportTasks>()
+                .HasOne(st => st.CompanyEmployees)
+                .WithMany()
+                .HasForeignKey(st => st.IdCompanyEmployee)
+                .OnDelete(DeleteBehavior.Restrict);
+                
         }
     }
 }

@@ -172,6 +172,130 @@ namespace TaskIcosoftBackend.Migrations
                     b.ToTable("ImageTypes");
                 });
 
+            modelBuilder.Entity("TaskIcosoftBackend.Models.Priority", b =>
+                {
+                    b.Property<int>("IdPriority")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPriority"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdPriority");
+
+                    b.ToTable("Priorities");
+                });
+
+            modelBuilder.Entity("TaskIcosoftBackend.Models.StatusTask", b =>
+                {
+                    b.Property<int>("IdStatus")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdStatus"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdStatus");
+
+                    b.ToTable("StatusTasks");
+                });
+
+            modelBuilder.Entity("TaskIcosoftBackend.Models.SupportTasks", b =>
+                {
+                    b.Property<int>("IdSupportTask")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSupportTask"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("EndTask")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCompany")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCompanyEmployee")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPriority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Solution")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTask")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdSupportTask");
+
+                    b.HasIndex("IdCompany");
+
+                    b.HasIndex("IdCompanyEmployee");
+
+                    b.HasIndex("IdPriority");
+
+                    b.HasIndex("IdStatus");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("SupportTasks");
+                });
+
             modelBuilder.Entity("TaskIcosoftBackend.Models.User", b =>
                 {
                     b.Property<int>("IdUser")
@@ -374,6 +498,49 @@ namespace TaskIcosoftBackend.Migrations
                         .IsRequired();
 
                     b.Navigation("ImageType");
+                });
+
+            modelBuilder.Entity("TaskIcosoftBackend.Models.SupportTasks", b =>
+                {
+                    b.HasOne("TaskIcosoftBackend.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("IdCompany")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TaskIcosoftBackend.Models.CompanyEmployees", "CompanyEmployees")
+                        .WithMany()
+                        .HasForeignKey("IdCompanyEmployee")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TaskIcosoftBackend.Models.Priority", "Priority")
+                        .WithMany()
+                        .HasForeignKey("IdPriority")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TaskIcosoftBackend.Models.StatusTask", "StatusTask")
+                        .WithMany()
+                        .HasForeignKey("IdStatus")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TaskIcosoftBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("CompanyEmployees");
+
+                    b.Navigation("Priority");
+
+                    b.Navigation("StatusTask");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaskIcosoftBackend.Models.User", b =>

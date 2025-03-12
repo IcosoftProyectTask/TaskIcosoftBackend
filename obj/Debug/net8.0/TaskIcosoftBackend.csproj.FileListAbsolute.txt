@@ -173,3 +173,8 @@ C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\obj\
 C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\obj\Debug\net8.0\TaskIcosoftBackend.pdb
 C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\obj\Debug\net8.0\TaskIcosoftBackend.genruntimeconfig.cache
 C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\obj\Debug\net8.0\ref\TaskIcosoftBackend.dll
+C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\josep\OneDrive\Documentos\PPS(2025)\TaskIcosoft\TaskIcosoftBackend\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
