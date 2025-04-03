@@ -27,8 +27,9 @@ namespace TaskIcosoftBackend.Dtos.SupportTasks
 
         public int IdCompany { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "El ID del empleado de la empresa debe ser un número válido.")]
-        public int IdCompanyEmployee { get; set; }
+        [Required(ErrorMessage = "El nombre del empleado de la empresa es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El nombre del empleado de la empresa no puede exceder los 100 caracteres.")]
+        public string NameEmployeeCompany { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "La prioridad es obligatoria.")]
         [Range(1, int.MaxValue, ErrorMessage = "La prioridad debe ser un número válido.")]
@@ -42,10 +43,10 @@ namespace TaskIcosoftBackend.Dtos.SupportTasks
         public string? Solution { get; set; }
 
         [DataType(DataType.DateTime, ErrorMessage = "La fecha de inicio debe ser válida.")]
-        public DateTime? StartTask { get; set; }
+        public DateTime? StartTask { get; set; } 
 
         [DataType(DataType.DateTime, ErrorMessage = "La fecha de finalización debe ser válida.")]
-        public DateTime? EndTask { get; set; }
+        public DateTime? EndTask { get; set; } 
 
     }
 }

@@ -25,12 +25,13 @@ namespace TaskIcosoftBackend.Controllers.SupportTasks
         private readonly ILogger<SupportTaskController> _logger;
         private readonly IHubContext<TaskHub> _hubContext;
 
-        public SupportTaskController(SupportTaskService supportTaskService, ILogger<SupportTaskController> logger,IHubContext<TaskHub> hubContext)
+        public SupportTaskController(SupportTaskService supportTaskService, ILogger<SupportTaskController> logger, IHubContext<TaskHub> hubContext)
         {
             _supportTaskService = supportTaskService;
             _logger = logger;
             _hubContext = hubContext;
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateSupportTask([FromBody] CreateSupportTask supportTaskDto)
@@ -41,8 +42,14 @@ namespace TaskIcosoftBackend.Controllers.SupportTasks
                 var supportTask = supportTaskDto.ToModel();
                 var result = await _supportTaskService.CreateSupportTask(supportTask);
 
+                // Convertir el resultado a DTO para devolverlo y enviarlo por SignalR
+                var resultDto = result.ToDto();
+
+                // Enviar el DTO completo por SignalR en lugar del DTO de entrada
+                await _hubContext.Clients.All.SendAsync("TaskCreated", resultDto);
+
                 _logger.LogInformation("Tarea de soporte creada con ID {SupportTaskId}.", result.IdSupportTask);
-                return Ok(ApiResponse<SupportTaskDto>.Ok(result.ToDto(), "Tarea de soporte creada exitosamente."));
+                return Ok(ApiResponse<SupportTaskDto>.Ok(resultDto, "Tarea de soporte creada exitosamente."));
             }
             catch (Exception ex)
             {
@@ -109,7 +116,7 @@ namespace TaskIcosoftBackend.Controllers.SupportTasks
                 existingTask.Category = updateSupportTaskDto.Category;
                 existingTask.IdUser = updateSupportTaskDto.IdUser;
                 existingTask.IdCompany = updateSupportTaskDto.IdCompany;
-                existingTask.IdCompanyEmployee = updateSupportTaskDto.IdCompanyEmployee;
+                existingTask.NameEmployeeCompany = updateSupportTaskDto.NameEmployeeCompany;
                 existingTask.IdPriority = updateSupportTaskDto.IdPriority;
                 existingTask.IdStatus = updateSupportTaskDto.IdStatus;
                 existingTask.Solution = updateSupportTaskDto.Solution;
@@ -168,7 +175,7 @@ namespace TaskIcosoftBackend.Controllers.SupportTasks
                 var result = await _supportTaskService.UpdateUserAsigment(id, updateUserAsigmentDto);
                 if (result)
                 {
-                     await _hubContext.Clients.All.SendAsync("TaskReassigned", id);
+                    await _hubContext.Clients.All.SendAsync("TaskReassigned", id);
                     _logger.LogInformation("Usuario asignado a la tarea de soporte con ID {SupportTaskId} actualizado exitosamente.", id);
                     return Ok(ApiResponse<string>.Ok(null, "Usuario asignado a la tarea de soporte actualizado exitosamente."));
                 }
@@ -193,6 +200,7 @@ namespace TaskIcosoftBackend.Controllers.SupportTasks
                 var result = await _supportTaskService.DeleteSupportTask(id);
                 if (result)
                 {
+                    await _hubContext.Clients.All.SendAsync("TaskDeleted", id); // TaskDeleted
                     _logger.LogInformation("Tarea de soporte con ID {SupportTaskId} eliminada exitosamente.", id);
                     return Ok(ApiResponse<string>.Ok(null, "Tarea de soporte eliminada exitosamente."));
                 }

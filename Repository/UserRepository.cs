@@ -100,6 +100,8 @@ namespace TaskIcosoftBackend.Repository
         public async Task<User?> GetActiveUserByIdAsync(int id)
         {
             return await _context.Users
+                .Include(u => u.Image)
+                .ThenInclude(i => i.ImageType)
                 .Where(u => u.IdUser == id && u.Status) // Filtra solo usuarios activos
                 .FirstOrDefaultAsync();
         }

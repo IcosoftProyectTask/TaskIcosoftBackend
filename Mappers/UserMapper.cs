@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskIcosoftBackend.Custom;
+using TaskIcosoftBackend.Dtos.CommentsTask;
 using TaskIcosoftBackend.Dtos.User;
 using TaskIcosoftBackend.Models;
 
@@ -71,6 +72,16 @@ namespace TaskIcosoftBackend.Mappers
         public static void MapUpdateFcmTokenRequestToUser(UpdateFcmTokenRequestDto request, User user)
         {
             user.FcmToken = request.FcmToken;
+        }
+
+        public static UserBasicDto ToBasicDto(User user)
+        {
+            return new UserBasicDto
+            {
+                Id = user.IdUser,
+                Name = user.Name,
+                Avatar = user.Image?.Base64Image // Asumiendo que el avatar es la imagen en Base64
+            };
         }
     }
 }

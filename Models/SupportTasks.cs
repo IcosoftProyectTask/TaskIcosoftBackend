@@ -37,10 +37,8 @@ namespace TaskIcosoftBackend.Models
         public Company? Company { get; set; }
 
         [Required]
-        public int IdCompanyEmployee { get; set; }
-
-        [ForeignKey("IdCompanyEmployee")]
-        public CompanyEmployees? CompanyEmployees { get; set; }
+        [MaxLength(100)]
+        public string NameEmployeeCompany { get; set; } = string.Empty;
 
         public string? Solution { get; set; } // Descripción de la solución aplicada
 

@@ -44,7 +44,7 @@ namespace TaskIcosoftBackend.Repository
                 var supportTask = await _context.SupportTasks
                     .Include(st => st.User) // Incluir la información del usuario
                     .Include(st => st.Company) // Incluir la información de la empresa
-                    .Include(st => st.CompanyEmployees) // Incluir la información del empleado de la empresa
+                         // Incluir la información del empleado de la empresa
                     .Include(st => st.Priority) // Incluir la información de la prioridad
                     .Include(st => st.StatusTask) // Incluir la información del estado de la tarea
                     .Where(st => st.Status)
@@ -72,7 +72,7 @@ namespace TaskIcosoftBackend.Repository
                 var supportTasks = await _context.SupportTasks
                     .Include(st => st.User) // Incluir la información del usuario
                     .Include(st => st.Company) // Incluir la información de la empresa
-                    .Include(st => st.CompanyEmployees) // Incluir la información del empleado de la empresa
+                    // Incluir la información del empleado de la empresa
                     .Include(st => st.Priority) // Incluir la información de la prioridad
                     .Include(st => st.StatusTask) // Incluir la información del estado de la tarea
                     .Where(st => st.Status) // Filtrar solo las tareas activas

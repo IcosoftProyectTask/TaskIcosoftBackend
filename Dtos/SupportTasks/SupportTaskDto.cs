@@ -19,8 +19,7 @@ namespace TaskIcosoftBackend.Dtos.SupportTasks
         public UserDto? User { get; set; }
         public int IdCompany { get; set; }
         public CompanyDto? Company { get; set; }
-        public int IdCompanyEmployee { get; set; }
-        public CompanyEmployeeDto? CompanyEmployees { get; set; }
+        public string NameEmployeeCompany { get; set; } = string.Empty;
         public int IdPriority { get; set; }
         public PriorityDto? Priority { get; set; }
         public int IdStatus { get; set; }

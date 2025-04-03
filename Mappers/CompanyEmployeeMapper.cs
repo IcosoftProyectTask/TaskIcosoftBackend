@@ -32,8 +32,8 @@ namespace TaskIcosoftBackend.Mappers
                 FirstSurname = createCompanyEmployeeDto.FirstSurname,
                 SecondSurname = createCompanyEmployeeDto.SecondSurname,
                 IdCompany = createCompanyEmployeeDto.IdCompany,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
                 Status = true
             };
         }

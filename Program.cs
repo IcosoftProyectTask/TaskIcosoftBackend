@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TaskIcosoftBackend.Hubs;
+using TaskIcosoftBackend.Services;
 
 
 
@@ -60,7 +61,10 @@ builder.Services.AddScoped<PriorityService>();
 builder.Services.AddScoped<PriorityRepository>();
 builder.Services.AddScoped<StatusTaskService>();
 builder.Services.AddScoped<StatusTasksRepository>();
-
+builder.Services.AddScoped<CommentReplyRepository>();
+builder.Services.AddScoped<CommentReplyService>();
+builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<CommentService>();
 
 
 
@@ -252,6 +256,7 @@ void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapHub<TaskHub>("/taskHub"); // Mapear el Hub
+        endpoints.MapHub<CommentsHub>("/commentsHub"); // Mapear el Hub
         endpoints.MapControllers();
     });
 }
@@ -274,6 +279,7 @@ void ConfigureMiddleware(WebApplication app)
 
     // Configuración de SignalR
     app.MapHub<TaskHub>("/taskHub"); // Mapear el Hub
+    app.MapHub<CommentsHub>("/commentsHub"); // Mapear el Hub
 
     app.MapControllers();
 }

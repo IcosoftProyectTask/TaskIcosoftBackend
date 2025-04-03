@@ -22,8 +22,7 @@ namespace TaskIcosoftBackend.Mappers
                 User = supportTask.User != null ? UserMapper.ToDto(supportTask.User) : null,
                 IdCompany = supportTask.IdCompany,
                 Company = supportTask.Company != null ? CompanyMapper.ToDto(supportTask.Company) : null,
-                IdCompanyEmployee = supportTask.IdCompanyEmployee,
-                CompanyEmployees = supportTask.CompanyEmployees != null ? CompanyEmployeeMapper.ToDto(supportTask.CompanyEmployees) : null,
+                NameEmployeeCompany = supportTask.NameEmployeeCompany,
                 IdPriority = supportTask.IdPriority,
                 Priority = supportTask.Priority != null ? PriorityMapper.ToDto(supportTask.Priority) : null,
                 IdStatus = supportTask.IdStatus,
@@ -47,27 +46,27 @@ namespace TaskIcosoftBackend.Mappers
                 Category = createSupportTask.Category,
                 IdUser = createSupportTask.IdUser,
                 IdCompany = createSupportTask.IdCompany,
-                IdCompanyEmployee = createSupportTask.IdCompanyEmployee,
+                NameEmployeeCompany = createSupportTask.NameEmployeeCompany,
                 IdPriority = createSupportTask.IdPriority,
                 IdStatus = createSupportTask.IdStatus,
                 Solution = createSupportTask.Solution,
                 StartTask = createSupportTask.StartTask,
                 EndTask = createSupportTask.EndTask,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
             };
         }
 
         public static void UpdateStatus(this SupportTasks supportTask, UpdateStatusSupportTask dto)
         {
             supportTask.IdStatus = dto.IdStatus;
-            supportTask.UpdatedAt = DateTime.UtcNow;
+            supportTask.UpdatedAt = DateTime.Now;
         }
 
         public static void UpdateUserAsigment(this SupportTasks supportTask, UpdateUserAsigmentDto dto)
         {
             supportTask.IdUser = dto.IdUser;
-            supportTask.UpdatedAt = DateTime.UtcNow;
+            supportTask.UpdatedAt = DateTime.Now;
         }
 
 

@@ -23,11 +23,12 @@ namespace TaskIcosoftBackend.Data
         public DbSet<SupportTasks> SupportTasks { get; set; }
         public DbSet<StatusTask> StatusTasks { get; set; }
         public DbSet<Priority> Priorities { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommentReply> CommentReplies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-             // Relación User - Role
+            // Relación User - Role
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Role)
                 .WithMany()
@@ -90,12 +91,40 @@ namespace TaskIcosoftBackend.Data
                 .HasForeignKey(st => st.IdCompany)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SupportTasks>()
-                .HasOne(st => st.CompanyEmployees)
+            // Relación Comment - User
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User)
                 .WithMany()
-                .HasForeignKey(st => st.IdCompanyEmployee)
+                .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-                
+
+            // Relación Comment - SupportTasks
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Task)
+                .WithMany()
+                .HasForeignKey(c => c.TaskId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relación CommentReply - User
+            modelBuilder.Entity<CommentReply>()
+                .HasOne(cr => cr.User)
+                .WithMany()
+                .HasForeignKey(cr => cr.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relación CommentReply - Comment
+            // Relación CommentReply - Comment
+            modelBuilder.Entity<CommentReply>()
+                .HasOne(cr => cr.Comment)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(cr => cr.CommentId)
+                .OnDelete(DeleteBehavior.Cascade); // Cambiado de Restrict a Cascade
+            // Relación recursiva para respuestas anidadas
+            modelBuilder.Entity<CommentReply>()
+                .HasOne(cr => cr.ParentReply) // Una respuesta puede tener una respuesta padre
+                .WithMany(cr => cr.ChildReplies) // Una respuesta padre puede tener muchas respuestas hijas
+                .HasForeignKey(cr => cr.ParentReplyId) // Clave foránea para la respuesta padre
+                .OnDelete(DeleteBehavior.Restrict); // Restringir eliminación en cascada
         }
     }
 }
