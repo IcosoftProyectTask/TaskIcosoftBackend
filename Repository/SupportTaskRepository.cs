@@ -44,7 +44,7 @@ namespace TaskIcosoftBackend.Repository
                 var supportTask = await _context.SupportTasks
                     .Include(st => st.User) // Incluir la información del usuario
                     .Include(st => st.Company) // Incluir la información de la empresa
-                         // Incluir la información del empleado de la empresa
+                                               // Incluir la información del empleado de la empresa
                     .Include(st => st.Priority) // Incluir la información de la prioridad
                     .Include(st => st.StatusTask) // Incluir la información del estado de la tarea
                     .Where(st => st.Status)
@@ -72,7 +72,7 @@ namespace TaskIcosoftBackend.Repository
                 var supportTasks = await _context.SupportTasks
                     .Include(st => st.User) // Incluir la información del usuario
                     .Include(st => st.Company) // Incluir la información de la empresa
-                    // Incluir la información del empleado de la empresa
+                                               // Incluir la información del empleado de la empresa
                     .Include(st => st.Priority) // Incluir la información de la prioridad
                     .Include(st => st.StatusTask) // Incluir la información del estado de la tarea
                     .Where(st => st.Status) // Filtrar solo las tareas activas
@@ -132,24 +132,37 @@ namespace TaskIcosoftBackend.Repository
             }
         }
 
-        public async Task<bool> UpdateStatus(int id, UpdateStatusSupportTask dto)
+        public async Task<bool> UpdateStatus(int id, UpdateStatusSupportTask updateStatusDto)
         {
             try
             {
-                var supportTask = await _context.SupportTasks.FindAsync(id);
-                if (supportTask == null)
+                var task = await _context.SupportTasks.FindAsync(id);
+                if (task == null)
                 {
-                    _logger.LogWarning($"No se encontró la tarea de soporte con ID {id}.");
+                    _logger.LogWarning("No se encontró la tarea de soporte con ID {SupportTaskId}.", id);
                     return false;
                 }
 
-                supportTask.UpdateStatus(dto); // Usa el método del mapper
+                task.IdStatus = updateStatusDto.IdStatus;
+
+                // Si el IdStatus es 3, establecer EndTask con la fecha y hora actual
+                if (updateStatusDto.IdStatus == 3)
+                {
+                    task.EndTask = DateTime.Now;
+                }
+                // Si no es 3 pero viene un valor de EndTask en el DTO, usarlo
+                else if (updateStatusDto.EndTask.HasValue)
+                {
+                    task.EndTask = updateStatusDto.EndTask.Value;
+                }
+
+                _context.SupportTasks.Update(task);
                 await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Error al actualizar el estado de la tarea de soporte con ID {id}.");
+                _logger.LogError(e, "Error al actualizar el estado de la tarea de soporte con ID {SupportTaskId}.", id);
                 throw new ApplicationException($"Error al actualizar el estado de la tarea de soporte con ID {id}.", e);
             }
         }
@@ -175,8 +188,5 @@ namespace TaskIcosoftBackend.Repository
                 throw new ApplicationException($"Error al actualizar el usuario asignado a la tarea de soporte con ID {id}.", e);
             }
         }
-
-
-
     }
 }

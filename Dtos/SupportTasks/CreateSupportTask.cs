@@ -44,8 +44,6 @@ namespace TaskIcosoftBackend.Dtos.SupportTasks
 
         [DataType(DataType.DateTime, ErrorMessage = "La fecha de inicio debe ser válida.")]
         public DateTime? StartTask { get; set; } 
-
-        [DataType(DataType.DateTime, ErrorMessage = "La fecha de finalización debe ser válida.")]
         public DateTime? EndTask { get; set; } 
 
     }

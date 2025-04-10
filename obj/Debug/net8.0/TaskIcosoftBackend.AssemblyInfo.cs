@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TaskIcosoftBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70aee060ecfaa57810bd33afcee7bfcde3b7d008")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68bdbe0797abce586109e40e124d86db7e03ffcb")]
 [assembly: System.Reflection.AssemblyProductAttribute("TaskIcosoftBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TaskIcosoftBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -410,7 +410,7 @@ namespace TaskIcosoftBackend.Service
                 // Determinar la audiencia (web o móvil)
                 var audience = sessionTypeId == 1
                     ? _configuration["Frontend:Url"] ?? throw new InvalidOperationException("La URL del frontend web no está configurada.")
-                    : _configuration["FrontendMobile:Url"] ?? throw new InvalidOperationException("La URL del frontend móvil no está configurada.");
+                    : _configuration.GetSection("FrontendMovil:Urls").Get<string[]>()?[0] ?? throw new InvalidOperationException("La URL del frontend móvil no está configurada.");
 
                 // Generar el JWT Token
                 var token = _utils.GenerateJwtToken(user, audience);

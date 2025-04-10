@@ -56,8 +56,6 @@ namespace TaskIcosoftBackend.Models
 
         [Required]
         public DateTime? StartTask { get; set; } // Fecha de resolución
-
-        [Required]
         public DateTime? EndTask{ get; set; } 
 
         [Required]

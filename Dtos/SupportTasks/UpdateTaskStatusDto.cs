@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TaskIcosoftBackend.Dtos.SupportTasks
 {
-    public class UpdateStatusSupportTask
+    public class UpdateTaskStatusDto
     {
         public int IdStatus { get; set; }
         public DateTime? EndTask { get; set; }

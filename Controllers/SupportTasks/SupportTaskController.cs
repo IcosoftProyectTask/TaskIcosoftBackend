@@ -128,6 +128,9 @@ namespace TaskIcosoftBackend.Controllers.SupportTasks
                 var updatedTask = await _supportTaskService.UpdateSupportTask(existingTask);
                 _logger.LogInformation("Tarea de soporte con ID {SupportTaskId} actualizada exitosamente.", id);
 
+                  await _hubContext.Clients.All.SendAsync("TaskUpdated", id);
+        
+                  _logger.LogInformation("Tarea de soporte con ID {SupportTaskId} actualizada exitosamente.", id);
                 // Convertir el resultado a DTO antes de devolverlo
                 var updatedTaskDto = updatedTask.ToDto();
                 return Ok(ApiResponse<SupportTaskDto>.Ok(updatedTaskDto, "Tarea de soporte actualizada exitosamente."));
