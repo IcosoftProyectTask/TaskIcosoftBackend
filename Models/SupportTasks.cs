@@ -53,8 +53,6 @@ namespace TaskIcosoftBackend.Models
 
         [ForeignKey("IdStatus")]
         public StatusTask? StatusTask { get; set; }
-
-        [Required]
         public DateTime? StartTask { get; set; } // Fecha de resolución
         public DateTime? EndTask{ get; set; } 
 

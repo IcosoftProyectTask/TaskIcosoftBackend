@@ -9,5 +9,6 @@ namespace TaskIcosoftBackend.Dtos.SupportTasks
     {
         public int IdStatus { get; set; }
         public DateTime? EndTask { get; set; }
+        public DateTime? StartTask { get; set; }
     }
 }

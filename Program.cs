@@ -65,6 +65,13 @@ builder.Services.AddScoped<CommentReplyRepository>();
 builder.Services.AddScoped<CommentReplyService>();
 builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<RemoteRepository>();
+builder.Services.AddScoped<RemoteService>();
+builder.Services.AddScoped<LicenseRepository>();
+builder.Services.AddScoped<LicenseService>();
+builder.Services.AddScoped<ClienteAccountInfoRepository>();
+builder.Services.AddScoped<ClienteAccountInfoService>();
+
 
 
 

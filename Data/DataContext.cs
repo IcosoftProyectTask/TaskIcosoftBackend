@@ -25,6 +25,9 @@ namespace TaskIcosoftBackend.Data
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CommentReply> CommentReplies { get; set; }
+        public DbSet<Remote> Remotes { get; set; }
+        public DbSet<License> Licenses { get; set; }
+        public DbSet<ClienteAccountInfo> ClienteAccountInfos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

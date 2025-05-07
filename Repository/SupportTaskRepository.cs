@@ -150,6 +150,10 @@ namespace TaskIcosoftBackend.Repository
                 {
                     task.EndTask = DateTime.Now;
                 }
+                else if(updateStatusDto.IdStatus==2)
+                {
+                    task.StartTask = DateTime.Now;
+                }
                 // Si no es 3 pero viene un valor de EndTask en el DTO, usarlo
                 else if (updateStatusDto.EndTask.HasValue)
                 {

@@ -41,8 +41,6 @@ namespace TaskIcosoftBackend.Dtos.SupportTasks
 
         [StringLength(1000, ErrorMessage = "La solución no puede exceder los 1000 caracteres.")]
         public string? Solution { get; set; }
-
-        [DataType(DataType.DateTime, ErrorMessage = "La fecha de inicio debe ser válida.")]
         public DateTime? StartTask { get; set; } 
         public DateTime? EndTask { get; set; } 
 
